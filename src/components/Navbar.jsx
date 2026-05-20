@@ -74,7 +74,7 @@ const Navbar = () => {
           right: 0,
           width: '50%',
           height: '100vh',
-          background: '#12073a',
+          background: '#000919',
           zIndex: 1000,
           padding: '28px 20px',
           transform: mobileOpen ? 'translateX(0)' : 'translateX(100%)',
@@ -131,29 +131,22 @@ const Navbar = () => {
           zIndex: 100,
           borderBottom: '1px solid rgba(255,255,255,0.06)',
           fontFamily: "'Segoe UI', sans-serif",
+          background: '#000919',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div
+          <img 
+            src="https://i.ibb.co.com/mrJ6mLgV/eb.jpg" 
+            alt="Begam Logo"
             style={{
-              width: '38px',
-              height: '38px',
+              width: '45px',
+              height: '45px',
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #ff9800, #ff5722)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              color: '#fff',
-              fontSize: '18px',
+              objectFit: 'cover',
+              border: '1px solid rgba(255,255,255,0.2)',
+              boxShadow: '0 0 12px rgba(0,0,0,0.3)',
             }}
-          >
-            b
-          </div>
-
-          <span style={{ color: '#fff', fontWeight: 800, fontSize: '22px', letterSpacing: '2px' }}>
-            BEGAM
-          </span>
+          />
         </div>
 
         <div className="desktop-menu" style={{ alignItems: 'center', gap: '30px' }}>
