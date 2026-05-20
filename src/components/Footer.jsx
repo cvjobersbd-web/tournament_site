@@ -1,169 +1,8 @@
 import React, { useState } from 'react';
 
 const Footer = () => {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = () => {
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
-    }
-  };
-
   return (
     <>
-      {/* ── NEWSLETTER SECTION ── */}
-      <div style={{
-        position: 'relative',
-        background: 'linear-gradient(135deg, #0a0530 0%, #080420 100%)',
-        padding: '60px 40px 80px',
-        overflow: 'hidden',
-        zIndex: 2,
-      }}>
-        {/* Envelope watermarks background */}
-        {[
-          { top: '8%',  left: '5%',  size: 90,  opacity: 0.07, rotate: '-15deg' },
-          { top: '40%', left: '2%',  size: 70,  opacity: 0.05, rotate: '10deg'  },
-          { top: '70%', left: '10%', size: 55,  opacity: 0.06, rotate: '-8deg'  },
-          { top: '15%', left: '18%', size: 50,  opacity: 0.04, rotate: '20deg'  },
-          { top: '60%', left: '22%', size: 65,  opacity: 0.06, rotate: '-20deg' },
-          { top: '5%',  right: '5%', size: 90,  opacity: 0.07, rotate: '15deg'  },
-          { top: '45%', right: '2%', size: 70,  opacity: 0.05, rotate: '-10deg' },
-          { top: '72%', right: '10%',size: 55,  opacity: 0.06, rotate: '8deg'   },
-          { top: '20%', right: '18%',size: 50,  opacity: 0.04, rotate: '-20deg' },
-          { top: '58%', right: '22%',size: 65,  opacity: 0.06, rotate: '20deg'  },
-        ].map((env, i) => (
-          <div key={i} style={{
-            position: 'absolute',
-            top: env.top, left: env.left, right: env.right,
-            transform: `rotate(${env.rotate})`,
-            opacity: env.opacity,
-            zIndex: 0, pointerEvents: 'none',
-          }}>
-            <svg width={env.size} height={env.size * 0.75} viewBox="0 0 80 60" fill="none">
-              <rect x="2" y="2" width="76" height="56" rx="4" stroke="white" strokeWidth="3" fill="none"/>
-              <polyline points="2,2 40,34 78,2" stroke="white" strokeWidth="3" fill="none"/>
-              <line x1="2" y1="58" x2="30" y2="30" stroke="white" strokeWidth="2"/>
-              <line x1="78" y1="58" x2="50" y2="30" stroke="white" strokeWidth="2"/>
-            </svg>
-          </div>
-        ))}
-
-        {/* Purple/pink ambient glow */}
-        <div style={{
-          position: 'absolute', top: '50%', left: '30%',
-          transform: 'translate(-50%, -50%)',
-          width: '500px', height: '400px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(100,40,200,0.35) 0%, transparent 65%)',
-          filter: 'blur(50px)', zIndex: 0,
-        }} />
-        <div style={{
-          position: 'absolute', top: '50%', right: '10%',
-          transform: 'translateY(-50%)',
-          width: '300px', height: '300px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(180,40,150,0.2) 0%, transparent 65%)',
-          filter: 'blur(40px)', zIndex: 0,
-        }} />
-
-        {/* Newsletter card */}
-        <div style={{
-          position: 'relative', zIndex: 1,
-          maxWidth: '820px', margin: '0 auto',
-          background: 'linear-gradient(135deg, rgba(40,20,130,0.75) 0%, rgba(80,40,180,0.6) 50%, rgba(130,50,160,0.55) 100%)',
-          borderRadius: '24px',
-          border: '1px solid rgba(120,80,255,0.25)',
-          padding: '60px 50px',
-          textAlign: 'center',
-          backdropFilter: 'blur(12px)',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)',
-        }}>
-          {/* Inner subtle grid */}
-          <div style={{
-            position: 'absolute', inset: 0, borderRadius: '24px',
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-            zIndex: 0,
-          }} />
-
-          <div style={{ position: 'relative', zIndex: 1 }}>
-            <h2 style={{
-              color: '#fff', fontWeight: 900, fontSize: '52px',
-              letterSpacing: '3px', margin: '0 0 16px 0',
-              lineHeight: 1.1, textTransform: 'uppercase',
-              textShadow: '0 0 30px rgba(255,255,255,0.15)',
-              fontFamily: "'Segoe UI', sans-serif",
-            }}>
-              SUBSCRIBE TO OUR<br />NEWSLETTER
-            </h2>
-
-            <p style={{
-              color: 'rgba(220,220,255,0.75)', fontSize: '16px',
-              margin: '0 0 36px 0', letterSpacing: '0.5px',
-            }}>
-              Receive news, stay updated and special offers
-            </p>
-
-            {/* Email input row */}
-            <div style={{
-              display: 'flex', alignItems: 'center',
-              maxWidth: '520px', margin: '0 auto',
-              background: 'rgba(15,8,50,0.7)',
-              borderRadius: '50px',
-              border: '1.5px solid rgba(120,80,255,0.4)',
-              overflow: 'hidden',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
-            }}>
-              <input
-                type="email"
-                placeholder="Your Email Address"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
-                style={{
-                  flex: 1,
-                  background: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                  color: '#fff',
-                  fontSize: '15px',
-                  padding: '16px 24px',
-                  fontFamily: "'Segoe UI', sans-serif",
-                }}
-              />
-              <button
-                onClick={handleSubscribe}
-                style={{
-                  background: subscribed
-                    ? 'linear-gradient(90deg, #4caf50, #2e7d32)'
-                    : 'linear-gradient(90deg, #ff9800, #e91e8c)',
-                  color: '#fff', fontWeight: 800, fontSize: '14px',
-                  border: 'none', borderRadius: '50px',
-                  padding: '14px 32px',
-                  margin: '4px',
-                  cursor: 'pointer',
-                  letterSpacing: '1.5px',
-                  boxShadow: subscribed
-                    ? '0 0 20px rgba(76,175,80,0.5)'
-                    : '0 0 20px rgba(255,80,100,0.5)',
-                  transition: 'all 0.3s ease',
-                  whiteSpace: 'nowrap',
-                  fontFamily: "'Segoe UI', sans-serif",
-                }}
-                onMouseEnter={e => { if (!subscribed) e.currentTarget.style.transform = 'scale(1.04)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-              >
-                {subscribed ? '✓ SUBSCRIBED!' : 'SUBSCRIBE'}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* ── FOOTER SECTION ── */}
       <footer style={{
         position: 'relative',
@@ -199,11 +38,11 @@ const Footer = () => {
               boxShadow: '0 0 20px rgba(255,120,0,0.5)',
               fontWeight: 900, fontSize: '22px', color: '#fff',
               fontFamily: "'Segoe UI', sans-serif",
-            }}>B</div>
+            }}>M</div>
             <span style={{
               color: '#fff', fontWeight: 900, fontSize: '24px',
               letterSpacing: '3px', fontFamily: "'Segoe UI', sans-serif",
-            }}>BEGAM</span>
+            }}>MGT ESPORTS</span>
           </div>
 
           {/* Nav links */}
@@ -288,7 +127,7 @@ const Footer = () => {
             <span style={{
               color: '#ff9800', fontWeight: 700,
               textShadow: '0 0 8px rgba(255,152,0,0.4)',
-            }}>BEGAM</span>
+            }}>MGT ESPORTS</span>
           </p>
         </div>
       </footer>
@@ -298,42 +137,7 @@ const Footer = () => {
         input:focus { outline: none; }
         
         /* Responsive Styles */
-        @media (max-width: 768px) {
-          .newsletter-section {
-            padding: 40px 20px 60px !important;
-          }
-          
-          .newsletter-card {
-            padding: 40px 25px !important;
-          }
-          
-          .newsletter-title {
-            font-size: 32px !important;
-          }
-          
-          .newsletter-subtitle {
-            font-size: 14px !important;
-            margin-bottom: 28px !important;
-          }
-          
-          .email-input-wrapper {
-            flex-direction: column !important;
-            border-radius: 30px !important;
-            background: rgba(15,8,50,0.7) !important;
-          }
-          
-          .email-input {
-            width: 100% !important;
-            text-align: center !important;
-            padding: 14px 20px !important;
-          }
-          
-          .subscribe-btn {
-            width: calc(100% - 8px) !important;
-            margin: 4px !important;
-            padding: 12px !important;
-          }
-          
+        @media (max-width: 768px) {          
           .footer-content {
             flex-direction: column !important;
             text-align: center !important;
@@ -361,25 +165,7 @@ const Footer = () => {
           }
         }
         
-        @media (max-width: 480px) {
-          .newsletter-title {
-            font-size: 24px !important;
-          }
-          
-          .newsletter-card {
-            padding: 30px 20px !important;
-          }
-          
-          .email-input {
-            padding: 12px 16px !important;
-            font-size: 13px !important;
-          }
-          
-          .subscribe-btn {
-            font-size: 12px !important;
-            padding: 10px !important;
-          }
-          
+        @media (max-width: 480px) {          
           .footer-content {
             padding: 30px 20px 20px !important;
           }
