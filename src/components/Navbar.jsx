@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [tourOpen, setTourOpen] = useState(false);
@@ -97,26 +98,11 @@ const Navbar = () => {
         </button>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '22px', marginTop: '60px' }}>
-          <a href="#" style={navLinkStyle}>HOME</a>
-          <a href="#" style={navLinkStyle}>TOURNAMENTS</a>
-          <a href="#" style={navLinkStyle}>PAGES</a>
-          <a href="#" style={navLinkStyle}>CONTACT</a>
-          <a href="#" style={{ ...navLinkStyle, color: '#fff' }}>LOGIN</a>
-
-          <button
-            style={{
-              background: 'linear-gradient(90deg, #ff9800, #ff5722)',
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: '14px',
-              border: 'none',
-              borderRadius: '24px',
-              padding: '10px 20px',
-              cursor: 'pointer',
-            }}
-          >
-            JOIN NOW!
-          </button>
+          <Link to="/" style={navLinkStyle} onClick={() => setMobileOpen(false)}>HOME</Link>
+          <Link to="/tournaments" style={navLinkStyle} onClick={() => setMobileOpen(false)}>TOURNAMENTS</Link>
+          <Link to="/" style={navLinkStyle} onClick={() => setMobileOpen(false)}>AVAILABLE GAMES</Link>
+          <Link to="/" style={navLinkStyle} onClick={() => setMobileOpen(false)}>CONTACT</Link>
+          <Link to="/login" style={{ ...navLinkStyle, color: '#fff' }} onClick={() => setMobileOpen(false)}>LOGIN</Link>
         </div>
       </div>
 
@@ -134,7 +120,7 @@ const Navbar = () => {
           background: '#000919',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
           <img 
             src="https://i.ibb.co.com/1t876NJQ/eb.png" 
             alt="Begam Logo"
@@ -147,34 +133,69 @@ const Navbar = () => {
               boxShadow: '0 0 12px rgba(0,0,0,0.3)',
             }}
           />
-        </div>
+        </Link>
 
         <div className="desktop-menu" style={{ alignItems: 'center', gap: '30px' }}>
-          <a href="#" style={{ ...navLinkStyle, color: '#00e5ff', fontWeight: 700 }}>HOME</a>
-          <a href="#" style={navLinkStyle}>TOURNAMENTS</a>
-          <a href="#" style={navLinkStyle}>PAGES</a>
-          <a href="#" style={navLinkStyle}>CONTACT</a>
+          <Link to="/" style={{ ...navLinkStyle, color: '#00e5ff', fontWeight: 700 }}>HOME</Link>
+          <Link to="/tournaments" style={navLinkStyle}>TOURNAMENTS</Link>
+          <Link to="/" style={navLinkStyle}>AVAILABLE GAMES</Link>
+          <Link to="/" style={navLinkStyle}>CONTACT</Link>
         </div>
 
         <div className="desktop-actions" style={{ alignItems: 'center', gap: '18px' }}>
-          <a href="#" style={{ color: '#fff', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }}>
-            LOGIN
-          </a>
+          {/* Notification Icon */}
+          <Link to="/" style={{ position: 'relative', cursor: 'pointer', display: 'flex' }}>
+            <svg 
+              width="22" 
+              height="22" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ display: 'block' }}
+            >
+              <path 
+                d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.63214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" 
+                stroke="#fff" 
+                strokeWidth="1.5" 
+                fill="none"
+              />
+              <path 
+                d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" 
+                stroke="#fff" 
+                strokeWidth="1.5" 
+                fill="none"
+                strokeLinecap="round"
+              />
+            </svg>
+          </Link>
 
-          <button
-            style={{
-              background: 'linear-gradient(90deg, #ff9800, #ff5722)',
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: '14px',
-              border: 'none',
-              borderRadius: '24px',
-              padding: '10px 24px',
-              cursor: 'pointer',
-            }}
-          >
-            JOIN NOW!
-          </button>
+          {/* LOGIN Button */}
+          <Link to="/login">
+            <button
+              style={{
+                background: 'linear-gradient(90deg, #ff9800, #ff5722)',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: '14px',
+                border: 'none',
+                borderRadius: '24px',
+                padding: '10px 28px',
+                cursor: 'pointer',
+                transition: 'transform 0.15s, box-shadow 0.15s',
+                boxShadow: '0 0 12px rgba(255,87,34,0.3)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 0 20px rgba(255,87,34,0.5)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 0 12px rgba(255,87,34,0.3)';
+              }}
+            >
+              LOGIN
+            </button>
+          </Link>
         </div>
 
         <button

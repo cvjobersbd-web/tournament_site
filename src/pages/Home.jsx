@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [loaded, setLoaded] = useState(false);
@@ -6,6 +7,46 @@ const Home = () => {
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  // Tournament data with images
+  const tournaments = [
+    {
+      id: 1,
+      title: 'MIX IT MONDAYS - CARRY ONLY',
+      gameName: 'REDSQUAD',
+      image: 'https://i.ibb.co.com/1t876NJQ/eb.png',
+      prize: 739,
+      entryFee: '10 CREDITS',
+      teamSize: '2 VS 2',
+      enrolled: 11,
+      maxTeams: 64,
+      startsIn: '10d 2H 18M',
+    },
+    {
+      id: 2,
+      title: 'HEAD 2 HEAD - WEEKLY - NANO',
+      gameName: 'WARZONE',
+      image: 'https://i.ibb.co.com/1t876NJQ/eb.png',
+      prize: 854,
+      entryFee: '10 CREDITS',
+      teamSize: '2 VS 2',
+      enrolled: 11,
+      maxTeams: 64,
+      startsIn: '10d 2H 18M',
+    },
+    {
+      id: 3,
+      title: 'MARATHON AIM PREMIUM',
+      gameName: 'WARZONE',
+      image: 'https://i.ibb.co.com/1t876NJQ/eb.png',
+      prize: 105,
+      entryFee: '10 CREDITS',
+      teamSize: '2 VS 2',
+      enrolled: 11,
+      maxTeams: 64,
+      startsIn: '10d 2H 18M',
+    },
+  ];
 
   return (
     <div style={{
@@ -140,6 +181,172 @@ const Home = () => {
           display: block;
         }
 
+        /* Tournament Section Styles */
+        .tournament-section {
+          position: relative;
+          z-index: 2;
+          background: linear-gradient(135deg, #0f0840 0%, #1a0f6e 50%, #0f0840 100%);
+          padding: 60px 80px 80px;
+        }
+
+        .tournament-title {
+          color: #fff;
+          font-weight: 900;
+          font-size: 48px;
+          letter-spacing: 2px;
+          margin: 0 0 10px 0;
+          text-transform: uppercase;
+          text-align: center;
+        }
+
+        .tournament-subtitle {
+          color: rgba(220,220,255,0.6);
+          font-size: 15px;
+          text-align: center;
+          margin-bottom: 40px;
+        }
+
+        .tournament-grid {
+          display: flex;
+          gap: 30px;
+          justify-content: center;
+          flex-wrap: wrap;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .tournament-card {
+          background: rgba(10,5,35,0.7);
+          backdropFilter: blur(10px);
+          border: 1px solid rgba(100,80,255,0.25);
+          border-radius: 20px;
+          overflow: hidden;
+          width: 320px;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .tournament-card:hover {
+          transform: translateY(-8px);
+          border-color: rgba(255,152,0,0.5);
+          box-shadow: 0 0 30px rgba(255,152,0,0.2);
+        }
+
+        .tournament-prize {
+          background: linear-gradient(135deg, #ff9800, #ff5722);
+          padding: 15px;
+          text-align: center;
+        }
+
+        .tournament-prize-label {
+          color: rgba(255,255,255,0.8);
+          font-size: 11px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+        }
+
+        .tournament-prize-amount {
+          color: #fff;
+          font-size: 32px;
+          font-weight: 900;
+          letter-spacing: 1px;
+        }
+
+        .tournament-info {
+          padding: 20px;
+        }
+
+        .tournament-name {
+          color: #fff;
+          font-weight: 800;
+          font-size: 16px;
+          margin: 0 0 15px 0;
+          line-height: 1.3;
+          min-height: 42px;
+        }
+
+        .tournament-stats {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-bottom: 15px;
+        }
+
+        .tournament-stat {
+          flex: 1;
+          min-width: 70px;
+        }
+
+        .tournament-stat-label {
+          color: rgba(180,180,220,0.55);
+          font-size: 9px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          margin-bottom: 4px;
+        }
+
+        .tournament-stat-value {
+          color: #fff;
+          font-size: 12px;
+          font-weight: 700;
+        }
+
+        .tournament-enrolled {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 12px 0;
+        }
+
+        .progress-bar {
+          flex: 1;
+          height: 6px;
+          background: rgba(255,255,255,0.1);
+          border-radius: 3px;
+          overflow: hidden;
+        }
+
+        .progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #ff9800, #ff5722);
+          border-radius: 3px;
+        }
+
+        .tournament-time {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-top: 12px;
+          padding-top: 12px;
+          border-top: 1px solid rgba(255,255,255,0.1);
+          color: #a855f7;
+          font-size: 12px;
+          font-weight: 600;
+        }
+
+        .view-all-btn {
+          display: block;
+          width: fit-content;
+          margin: 40px auto 0;
+          background: transparent;
+          border: 2px solid rgba(168,85,247,0.5);
+          color: #a855f7;
+          font-weight: 700;
+          font-size: 14px;
+          border-radius: 30px;
+          padding: 12px 32px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          letter-spacing: 1px;
+          text-decoration: none;
+        }
+
+        .view-all-btn:hover {
+          background: rgba(168,85,247,0.15);
+          border-color: #a855f7;
+          transform: scale(1.02);
+        }
+
         .how-section {
           position: relative;
           z-index: 2;
@@ -241,6 +448,8 @@ const Home = () => {
           .game-card img {
             height: 240px !important;
           }
+          .tournament-section { padding: 50px 40px 60px; }
+          .tournament-title { font-size: 38px; }
           .how-section { padding: 60px 40px 70px; }
           .how-title { font-size: 44px; }
           .players-section { padding: 60px 40px 80px; }
@@ -322,6 +531,19 @@ const Home = () => {
             height: 200px !important;
           }
 
+          .tournament-section {
+            padding: 40px 20px 50px;
+          }
+
+          .tournament-title {
+            font-size: 28px;
+          }
+
+          .tournament-card {
+            width: 100%;
+            max-width: 320px;
+          }
+
           .how-section {
             padding: 50px 20px 60px;
           }
@@ -390,6 +612,18 @@ const Home = () => {
 
           .game-card img {
             height: 220px !important;
+          }
+
+          .tournament-title {
+            font-size: 24px;
+          }
+
+          .tournament-prize-amount {
+            font-size: 24px;
+          }
+
+          .tournament-name {
+            font-size: 14px;
           }
 
           .how-title {
@@ -685,6 +919,92 @@ const Home = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* ── TOURNAMENTS SECTION ── */}
+      <div className="tournament-section">
+        <h2 className="tournament-title">🔥 FEATURED TOURNAMENTS</h2>
+        <p className="tournament-subtitle">Join the battle and win amazing prizes</p>
+        
+        <div className="tournament-grid">
+          {tournaments.map((tournament) => (
+            <div key={tournament.id} className="tournament-card">
+              {/* Game Image */}
+              <div style={{
+                width: '100%',
+                height: '160px',
+                overflow: 'hidden',
+                position: 'relative',
+              }}>
+                <img
+                  src={tournament.image}
+                  alt={tournament.gameName}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                {/* Game Name Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  background: 'linear-gradient(transparent, rgba(0,0,0,0.8))',
+                  padding: '30px 12px 8px 12px',
+                }}>
+                  <span style={{
+                    color: '#fff',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    letterSpacing: '1px',
+                  }}>{tournament.gameName}</span>
+                </div>
+              </div>
+              
+              <div className="tournament-prize">
+                <div className="tournament-prize-label">TOTAL PRIZE</div>
+                <div className="tournament-prize-amount">${tournament.prize}</div>
+              </div>
+              
+              <div className="tournament-info">
+                <h3 className="tournament-name">{tournament.title}</h3>
+                <div className="tournament-stats">
+                  <div className="tournament-stat">
+                    <div className="tournament-stat-label">ENTRY FEE</div>
+                    <div className="tournament-stat-value">{tournament.entryFee}</div>
+                  </div>
+                  <div className="tournament-stat">
+                    <div className="tournament-stat-label">TEAM SIZE</div>
+                    <div className="tournament-stat-value">{tournament.teamSize}</div>
+                  </div>
+                  <div className="tournament-stat">
+                    <div className="tournament-stat-label">MAX TEAMS</div>
+                    <div className="tournament-stat-value">{tournament.maxTeams}</div>
+                  </div>
+                </div>
+                <div className="tournament-enrolled">
+                  <span style={{ fontSize: '11px', color: 'rgba(220,220,255,0.6)' }}>ENROLLED: {tournament.enrolled}/{tournament.maxTeams}</span>
+                  <div className="progress-bar">
+                    <div className="progress-fill" style={{ width: `${(tournament.enrolled / tournament.maxTeams) * 100}%` }}></div>
+                  </div>
+                </div>
+                <div className="tournament-time">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#a855f7">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                  </svg>
+                  <span>Starts in {tournament.startsIn}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <Link to="/tournaments" className="view-all-btn">
+          VIEW ALL TOURNAMENTS →
+        </Link>
       </div>
 
       {/* ── HOW IT WORKS SECTION ── */}
@@ -1334,7 +1654,6 @@ const Home = () => {
             maxWidth: '800px',
             margin: '0 auto',
           }}>
-            {/* Sample Notice Structure */}
             {[
               {
                 id: 1,
