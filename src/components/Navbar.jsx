@@ -136,12 +136,12 @@ const Navbar = () => {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img 
-            src="https://i.ibb.co.com/mrJ6mLgV/eb.jpg" 
+            src="https://i.ibb.co.com/1t876NJQ/eb.png" 
             alt="Begam Logo"
             style={{
-              width: '45px',
-              height: '45px',
-              borderRadius: '50%',
+              width: '80px',
+              height: '80px',
+              borderRadius: '100%',
               objectFit: 'cover',
               border: '1px solid rgba(255,255,255,0.2)',
               boxShadow: '0 0 12px rgba(0,0,0,0.3)',

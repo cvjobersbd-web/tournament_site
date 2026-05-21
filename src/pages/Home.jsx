@@ -22,6 +22,16 @@ const Home = () => {
           from { transform: scaleY(1) translateY(0); opacity: 0.85; }
           to { transform: scaleY(1.1) translateY(-4px); opacity: 1; }
         }
+        @keyframes noticePulse {
+          0%, 100% { 
+            box-shadow: 0 0 0 0 rgba(168,85,247,0.4);
+            border-left: 3px solid #a855f7;
+          }
+          50% { 
+            box-shadow: 0 0 0 8px rgba(168,85,247,0);
+            border-left: 3px solid #ff9800;
+          }
+        }
         * { box-sizing: border-box; }
 
         .hero-section {
@@ -115,6 +125,21 @@ const Home = () => {
           flex-wrap: wrap;
         }
 
+        .game-card {
+          width: 280px !important;
+          border-radius: 20px;
+          overflow: hidden;
+          transition: all 0.3s ease;
+          background: #000;
+        }
+
+        .game-card img {
+          width: 100%;
+          height: 280px !important;
+          object-fit: cover;
+          display: block;
+        }
+
         .how-section {
           position: relative;
           z-index: 2;
@@ -172,6 +197,25 @@ const Home = () => {
           flex-wrap: wrap;
         }
 
+        /* Floating animation for hero images */
+        @keyframes float1 {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes float2 {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-12px); }
+        }
+        
+        .hero-img-1 {
+          animation: float1 4s ease-in-out infinite;
+        }
+        
+        .hero-img-2 {
+          animation: float2 3.5s ease-in-out infinite;
+        }
+
         /* ── TABLET (≤ 1024px) ── */
         @media (max-width: 1024px) {
           .hero-section {
@@ -191,6 +235,12 @@ const Home = () => {
           .hero-title { font-size: 48px; }
           .games-section { padding: 50px 40px 60px; }
           .games-title { font-size: 38px; }
+          .game-card {
+            width: 240px !important;
+          }
+          .game-card img {
+            height: 240px !important;
+          }
           .how-section { padding: 60px 40px 70px; }
           .how-title { font-size: 44px; }
           .players-section { padding: 60px 40px 80px; }
@@ -232,14 +282,15 @@ const Home = () => {
           .hero-left-char {
             order: 2;
             flex: none;
-            width: 50%;
+            width: 100%;
             justify-content: center;
+            margin-bottom: 15px;
           }
 
           .hero-right-char {
             order: 3;
             flex: none;
-            width: 50%;
+            width: 100%;
             justify-content: center;
           }
 
@@ -334,7 +385,7 @@ const Home = () => {
 
           .game-card {
             width: 100% !important;
-            max-width: 300px;
+            max-width: 260px;
           }
 
           .game-card img {
@@ -369,12 +420,11 @@ const Home = () => {
           }
         }
 
-        /* Fix for banner images not visible on mobile - ensure they display properly */
+        /* Fix for hero images on mobile */
         @media (max-width: 768px) {
           .hero-left-char img,
           .hero-right-char img {
-            width: 100%;
-            max-width: 180px !important;
+            max-width: 160px !important;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -383,15 +433,22 @@ const Home = () => {
           .hero-left-char,
           .hero-right-char {
             flex: 0 0 auto;
-            width: 50%;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 10px;
           }
           
+          .hero-images-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+          }
+          
           .hero-section {
-            flex-direction: row;
+            flex-direction: column;
             flex-wrap: wrap;
             justify-content: center;
             padding-top: 20px;
@@ -415,7 +472,7 @@ const Home = () => {
         @media (max-width: 480px) {
           .hero-left-char img,
           .hero-right-char img {
-            max-width: 140px !important;
+            max-width: 130px !important;
           }
         }
       `}</style>
@@ -459,7 +516,7 @@ const Home = () => {
 
       {/* ── HERO SECTION ── */}
       <div className="hero-section">
-        {/* Left character */}
+        {/* Left character - PUBG */}
         <div
           className="hero-left-char"
           style={{
@@ -469,20 +526,35 @@ const Home = () => {
           }}
         >
           <img
-            src="https://i.ibb.co.com/sdS7HNdT/left-banner.png"
-            alt="Left player"
-            style={{ width: '100%', maxWidth: '340px', display: 'block', objectFit: 'contain' }}
+            src="https://i.ibb.co.com/7tk5K8sR/Download-Pubg-game-player-character-isolated-on-a-transparent-background-for-free-jpg.png"
+            alt="PUBG Player"
+            className="hero-img-1"
+            style={{ width: '100%', maxWidth: '320px', display: 'block', objectFit: 'contain' }}
           />
         </div>
 
         {/* Center content */}
         <div className="hero-center">
+          <img
+            src="https://i.ibb.co.com/35Ntmj4H/pngwing-com.png"
+            alt="Game Character Top"
+            style={{
+              width: '100%',
+              maxWidth: '200px',
+              marginBottom: '16px',
+              display: 'block',
+              objectFit: 'contain',
+              opacity: loaded ? 1 : 0,
+              transform: loaded ? 'translateY(0)' : 'translateY(-30px)',
+              transition: 'opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s',
+            }}
+          />
           <p
             className="hero-subtitle"
             style={{
               opacity: loaded ? 1 : 0,
               transform: loaded ? 'translateY(0)' : 'translateY(-20px)',
-              transition: 'opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s',
+              transition: 'opacity 0.6s ease 0.45s, transform 0.6s ease 0.45s',
             }}
           >PLAY UNLIMITED</p>
 
@@ -491,7 +563,7 @@ const Home = () => {
             style={{
               opacity: loaded ? 1 : 0,
               transform: loaded ? 'translateY(0)' : 'translateY(-20px)',
-              transition: 'opacity 0.6s ease 0.55s, transform 0.6s ease 0.55s',
+              transition: 'opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s',
             }}
           >TOURNAMENTS</h1>
 
@@ -499,43 +571,12 @@ const Home = () => {
             className="hero-desc"
             style={{
               opacity: loaded ? 1 : 0,
-              transition: 'opacity 0.6s ease 0.7s',
+              transition: 'opacity 0.6s ease 0.75s',
             }}
           >
             Compete in Free and Paid entry Tournaments. Transform your
             games to real money eSports
           </p>
-
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: '16px',
-            opacity: loaded ? 1 : 0,
-            transition: 'opacity 0.6s ease 0.85s',
-          }}>
-            <button style={{
-              background: 'linear-gradient(90deg, #ff9800, #ff5722)',
-              color: '#fff', fontWeight: 700, fontSize: '15px',
-              border: 'none', borderRadius: '28px',
-              padding: '14px 36px', cursor: 'pointer',
-              boxShadow: '0 0 24px rgba(255,120,0,0.55)',
-              letterSpacing: '1px', transition: 'transform 0.15s',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-            >GET STARTED</button>
-
-            <button style={{
-              background: 'transparent',
-              border: '2px solid rgba(255,255,255,0.5)',
-              color: '#fff', width: '48px', height: '48px',
-              borderRadius: '50%', cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '16px', transition: 'border-color 0.2s, background 0.2s',
-              flexShrink: 0,
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.borderColor = '#fff'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; }}
-            >▶</button>
-          </div>
 
           {/* VS fire emblem */}
           <div style={{
@@ -543,7 +584,7 @@ const Home = () => {
             width: '120px', height: '120px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             opacity: loaded ? 1 : 0,
-            transition: 'opacity 0.6s ease 1s',
+            transition: 'opacity 0.6s ease 0.9s',
           }}>
             <div style={{
               position: 'absolute', inset: 0, borderRadius: '50%',
@@ -581,19 +622,24 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Right character */}
+        {/* Right character - Free Fire */}
         <div
           className="hero-right-char"
           style={{
             opacity: loaded ? 1 : 0,
             transform: loaded ? 'translateX(0)' : 'translateX(60px)',
             transition: 'opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '15px',
+            alignItems: 'center',
           }}
         >
           <img
-            src="https://i.ibb.co.com/CFPz6Fc/right-banner.png"
-            alt="Right player"
-            style={{ width: '100%', maxWidth: '340px', display: 'block', objectFit: 'contain' }}
+            src="https://i.ibb.co.com/35wh88w5/470234387-1206616767691482-1751722073731540386-n-jpg.png"
+            alt="Game Character"
+            className="hero-img-2"
+            style={{ width: '100%', maxWidth: '250px', display: 'block', objectFit: 'contain' }}
           />
         </div>
       </div>
@@ -617,15 +663,9 @@ const Home = () => {
               key={idx}
               className="game-card"
               style={{
-                width: '320px',
-                borderRadius: '20px',
-                overflow: 'hidden',
                 border: game.active ? '3px solid #ff9800' : '3px solid rgba(255,255,255,0.15)',
                 boxShadow: game.active ? '0 0 30px rgba(255,152,0,0.4), 0 8px 25px rgba(0,0,0,0.5)' : '0 8px 25px rgba(0,0,0,0.4)',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
                 transform: game.active ? 'translateY(-8px)' : 'translateY(0)',
-                background: '#000',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.transform = 'translateY(-12px)';
@@ -641,12 +681,6 @@ const Home = () => {
               <img
                 src={game.img}
                 alt={game.name}
-                style={{
-                  width: '100%',
-                  height: '380px',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
               />
             </div>
           ))}
@@ -698,10 +732,10 @@ const Home = () => {
         {/* Steps row */}
         <div className="steps-row">
           {[
-            { num: 1, label: 'SIGNUP',   icon: '📱' },
-            { num: 2, label: 'DEPOSIT',  icon: '🐷' },
-            { num: 3, label: 'COMPETE',  icon: '🏆' },
-            { num: 4, label: 'GET PAID', icon: '💰' },
+            { num: 1, label: 'SIGNUP', icon: '📝' },
+            { num: 2, label: 'REGISTRATION', icon: '✅' },
+            { num: 3, label: 'PLAY', icon: '🎮' },
+            { num: 4, label: 'WIN', icon: '🏆' },
           ].map((step, idx) => (
             <React.Fragment key={step.num}>
               {/* Step card */}
@@ -744,38 +778,29 @@ const Home = () => {
                   >
                     {step.num === 1 && (
                       <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                        <rect x="14" y="4" width="24" height="38" rx="4" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none"/>
-                        <rect x="18" y="8" width="16" height="20" rx="2" stroke="rgba(255,255,255,0.7)" strokeWidth="1.5" fill="none"/>
-                        <circle cx="26" cy="36" r="2.5" fill="rgba(255,255,255,0.9)"/>
-                        <line x1="22" y1="12" x2="26" y2="16" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round"/>
-                        <line x1="30" y1="12" x2="26" y2="16" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round"/>
+                        <path d="M26 8 L26 44 M8 26 L44 26" stroke="rgba(255,255,255,0.9)" strokeWidth="3" strokeLinecap="round"/>
+                        <circle cx="26" cy="26" r="16" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none"/>
+                        <path d="M32 20 L20 32 M20 20 L32 32" stroke="rgba(255,255,255,0.7)" strokeWidth="2" strokeLinecap="round"/>
                       </svg>
                     )}
                     {step.num === 2 && (
                       <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                        <ellipse cx="26" cy="30" rx="16" ry="10" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none"/>
-                        <path d="M10 30 Q10 18 26 18 Q42 18 42 30" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none"/>
-                        <circle cx="34" cy="20" r="4" stroke="rgba(255,255,255,0.8)" strokeWidth="2" fill="none"/>
-                        <line x1="34" y1="16" x2="34" y2="13" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round"/>
+                        <rect x="12" y="12" width="28" height="28" rx="6" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none"/>
+                        <path d="M20 26 L24 30 L32 20" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M18 8 L12 12 L12 18" stroke="rgba(255,255,255,0.6)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     )}
                     {step.num === 3 && (
                       <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                        <circle cx="20" cy="18" r="7" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none"/>
-                        <path d="M8 42 Q8 30 20 30 Q26 30 30 34" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-                        <circle cx="38" cy="22" r="3" stroke="rgba(255,255,255,0.7)" strokeWidth="2" fill="none"/>
-                        <circle cx="38" cy="30" r="3" stroke="rgba(255,255,255,0.7)" strokeWidth="2" fill="none"/>
-                        <circle cx="38" cy="38" r="3" stroke="rgba(255,255,255,0.7)" strokeWidth="2" fill="none"/>
-                        <line x1="41" y1="22" x2="44" y2="22" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round"/>
-                        <line x1="41" y1="30" x2="44" y2="30" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round"/>
-                        <line x1="41" y1="38" x2="44" y2="38" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round"/>
+                        <polygon points="16,12 38,26 16,40" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none" strokeLinejoin="round"/>
+                        <circle cx="26" cy="26" r="16" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" fill="none" strokeDasharray="4 4"/>
+                        <path d="M22 20 L30 26 L22 32" stroke="rgba(255,255,255,0.8)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     )}
                     {step.num === 4 && (
                       <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                        <circle cx="26" cy="26" r="16" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none"/>
-                        <path d="M26 16 L26 12 M26 40 L26 36" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round"/>
-                        <path d="M20 22 Q20 19 26 19 Q32 19 32 23 Q32 27 26 27 Q32 27 32 31 Q32 35 26 35 Q20 35 20 32" stroke="rgba(255,255,255,0.9)" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                        <path d="M26 8 L22 18 L12 18 L20 24 L16 34 L26 28 L36 34 L32 24 L40 18 L30 18 L26 8Z" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" fill="none" strokeLinejoin="round"/>
+                        <circle cx="26" cy="28" r="10" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" fill="none"/>
                       </svg>
                     )}
                   </div>
@@ -783,9 +808,10 @@ const Home = () => {
 
                 {/* Label */}
                 <div style={{
-                  color: '#fff', fontWeight: 900, fontSize: '17px',
-                  letterSpacing: '2px', textTransform: 'uppercase',
+                  color: '#fff', fontWeight: 900, fontSize: '16px',
+                  letterSpacing: '1.5px', textTransform: 'uppercase',
                   textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+                  textAlign: 'center',
                 }}>{step.label}</div>
               </div>
 
@@ -883,182 +909,559 @@ const Home = () => {
           </p>
         </div>
 
-        {/* Player Cards */}
+        {/* Player Cards - Empty placeholder structure */}
         <div className="players-grid">
-          {[
-            {
-              name: 'BARTON GRIGGS',
-              xp: '1970 XP Earned',
-              date: '04/05 - 04/12',
-              credits: '+20 CREDITS',
-              rank: '02',
-              featured: false,
-              avatar: 'https://i.pravatar.cc/150?img=11',
-            },
-            {
-              name: 'MERVIN TRASK',
-              xp: '1970 XP Earned',
-              date: '04/05 - 04/12',
-              credits: '+20 CREDITS',
-              rank: '02',
-              featured: true,
-              avatar: 'https://i.pravatar.cc/150?img=52',
-            },
-            {
-              name: 'ADRIA POULIN',
-              xp: '1970 XP Earned',
-              date: '04/05 - 04/12',
-              credits: '+20 CREDITS',
-              rank: '02',
-              featured: false,
-              avatar: 'https://i.pravatar.cc/150?img=47',
-            },
-          ].map((player, idx) => (
-            <div
-              key={idx}
-              className={player.featured ? 'player-card-featured' : 'player-card'}
+          {/* Placeholder Card 1 */}
+          <div className="player-card" style={{
+            position: 'relative',
+            width: '280px',
+            borderRadius: '20px',
+            border: '1px solid rgba(100,80,255,0.25)',
+            background: 'linear-gradient(160deg, rgba(30,18,90,0.85) 0%, rgba(15,8,50,0.95) 100%)',
+            backdropFilter: 'blur(10px)',
+            padding: '40px 24px 28px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            cursor: 'pointer',
+          }}>
+            {/* Radar rings + placeholder avatar */}
+            <div style={{ position: 'relative', width: '140px', height: '140px', marginBottom: '18px' }}>
+              {[130, 110, 90].map((size, i) => (
+                <div key={i} style={{
+                  position: 'absolute',
+                  top: '50%', left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: `${size}px`, height: `${size}px`,
+                  borderRadius: '50%',
+                  border: `1px solid rgba(80,120,255,${0.15 + i * 0.05})`,
+                  boxShadow: `0 0 ${6 + i * 3}px rgba(60,100,255,0.1)`,
+                }} />
+              ))}
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
+                <div key={i} style={{
+                  position: 'absolute',
+                  top: '50%', left: '50%',
+                  width: '2px', height: '55px',
+                  background: 'linear-gradient(to bottom, rgba(80,120,255,0.25), transparent)',
+                  transformOrigin: '50% 0%',
+                  transform: `translate(-50%, 0) rotate(${deg}deg)`,
+                }} />
+              ))}
+              {/* Placeholder Avatar */}
+              <div style={{
+                position: 'absolute', top: '50%', left: '50%',
+                transform: 'translate(-50%, -55%)',
+                width: '80px', height: '80px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '3px solid rgba(100,80,255,0.5)',
+                boxShadow: '0 0 20px rgba(80,60,220,0.5)',
+                background: 'linear-gradient(135deg, #2a1a6e, #1a0a4a)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '32px' }}>👤</span>
+              </div>
+              {/* Rank hex badge */}
+              <div style={{
+                position: 'absolute', bottom: '4px', left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: 2,
+              }}>
+                <div style={{
+                  background: 'linear-gradient(135deg, #ff9800, #ff5722)',
+                  clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                  width: '36px', height: '40px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: '0 0 12px rgba(255,120,0,0.6)',
+                }}>
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: '13px' }}>--</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Placeholder Name */}
+            <h3 style={{
+              color: 'rgba(255,255,255,0.5)',
+              fontWeight: 900, fontSize: '20px',
+              letterSpacing: '1.5px', margin: '0 0 8px 0',
+              textTransform: 'uppercase', textAlign: 'center',
+            }}>COMING SOON</h3>
+
+            {/* Placeholder XP & Date */}
+            <p style={{ margin: '0 0 14px 0', fontSize: '13px', color: 'rgba(200,200,255,0.4)', textAlign: 'center' }}>
+              <span style={{ color: 'rgba(124,252,0,0.4)', fontWeight: 700 }}>--- XP Earned</span>
+              {' '}
+              <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>--/-- - --/--</span>
+            </p>
+
+            {/* Placeholder Credits */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '6px',
+              marginBottom: '20px',
+              color: 'rgba(0,229,255,0.4)', fontWeight: 700, fontSize: '14px',
+            }}>
+              <span>🎁</span>
+              <span>-- CREDITS</span>
+            </div>
+
+            {/* View Profile button */}
+            <button style={{
+              background: 'linear-gradient(90deg, #ff9800, #ff5722)',
+              color: '#fff', fontWeight: 800, fontSize: '13px',
+              border: 'none', borderRadius: '24px',
+              padding: '12px 32px', cursor: 'pointer',
+              letterSpacing: '1.5px',
+              boxShadow: '0 0 20px rgba(255,120,0,0.45)',
+              transition: 'transform 0.15s, box-shadow 0.15s',
+              width: '100%',
+              opacity: 0.7,
+            }}>
+              VIEW PROFILE
+            </button>
+          </div>
+
+          {/* Placeholder Card 2 - Featured */}
+          <div className="player-card-featured" style={{
+            position: 'relative',
+            width: '280px',
+            borderRadius: '20px',
+            border: '1px solid rgba(100,80,255,0.25)',
+            background: 'linear-gradient(160deg, rgba(30,18,90,0.85) 0%, rgba(15,8,50,0.95) 100%)',
+            backdropFilter: 'blur(10px)',
+            padding: '40px 24px 28px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            boxShadow: '0 0 40px rgba(120,60,255,0.35), 0 20px 50px rgba(0,0,0,0.6)',
+            transform: 'translateY(-20px)',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            cursor: 'pointer',
+          }}>
+            {/* Featured star ribbon */}
+            <div style={{
+              position: 'absolute', top: '-1px', left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 3,
+            }}>
+              <div style={{
+                background: 'linear-gradient(135deg, #e91e8c, #c2185b)',
+                width: '44px', paddingBottom: '16px',
+                display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+                paddingTop: '10px',
+                clipPath: 'polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%)',
+                boxShadow: '0 4px 20px rgba(233,30,140,0.6)',
+              }}>
+                <span style={{ color: '#fff', fontSize: '18px' }}>★</span>
+              </div>
+            </div>
+
+            {/* Radar rings + placeholder avatar */}
+            <div style={{ position: 'relative', width: '140px', height: '140px', marginBottom: '18px', marginTop: '20px' }}>
+              {[130, 110, 90].map((size, i) => (
+                <div key={i} style={{
+                  position: 'absolute',
+                  top: '50%', left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: `${size}px`, height: `${size}px`,
+                  borderRadius: '50%',
+                  border: `1px solid rgba(80,120,255,${0.15 + i * 0.05})`,
+                  boxShadow: `0 0 ${6 + i * 3}px rgba(60,100,255,0.1)`,
+                }} />
+              ))}
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
+                <div key={i} style={{
+                  position: 'absolute',
+                  top: '50%', left: '50%',
+                  width: '2px', height: '55px',
+                  background: 'linear-gradient(to bottom, rgba(80,120,255,0.25), transparent)',
+                  transformOrigin: '50% 0%',
+                  transform: `translate(-50%, 0) rotate(${deg}deg)`,
+                }} />
+              ))}
+              {/* Placeholder Avatar */}
+              <div style={{
+                position: 'absolute', top: '50%', left: '50%',
+                transform: 'translate(-50%, -55%)',
+                width: '80px', height: '80px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '3px solid rgba(100,80,255,0.5)',
+                boxShadow: '0 0 20px rgba(80,60,220,0.5)',
+                background: 'linear-gradient(135deg, #2a1a6e, #1a0a4a)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '32px' }}>👤</span>
+              </div>
+              {/* Rank hex badge */}
+              <div style={{
+                position: 'absolute', bottom: '4px', left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: 2,
+              }}>
+                <div style={{
+                  background: 'linear-gradient(135deg, #ff9800, #ff5722)',
+                  clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                  width: '36px', height: '40px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: '0 0 12px rgba(255,120,0,0.6)',
+                }}>
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: '13px' }}>--</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Placeholder Name */}
+            <h3 style={{
+              color: 'rgba(255,255,255,0.5)',
+              fontWeight: 900, fontSize: '20px',
+              letterSpacing: '1.5px', margin: '0 0 8px 0',
+              textTransform: 'uppercase', textAlign: 'center',
+            }}>FEATURED</h3>
+
+            {/* Placeholder XP & Date */}
+            <p style={{ margin: '0 0 14px 0', fontSize: '13px', color: 'rgba(200,200,255,0.4)', textAlign: 'center' }}>
+              <span style={{ color: 'rgba(124,252,0,0.4)', fontWeight: 700 }}>--- XP Earned</span>
+              {' '}
+              <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>--/-- - --/--</span>
+            </p>
+
+            {/* Placeholder Credits */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '6px',
+              marginBottom: '20px',
+              color: 'rgba(0,229,255,0.4)', fontWeight: 700, fontSize: '14px',
+            }}>
+              <span>🎁</span>
+              <span>-- CREDITS</span>
+            </div>
+
+            {/* View Profile button */}
+            <button style={{
+              background: 'linear-gradient(90deg, #ff9800, #ff5722)',
+              color: '#fff', fontWeight: 800, fontSize: '13px',
+              border: 'none', borderRadius: '24px',
+              padding: '12px 32px', cursor: 'pointer',
+              letterSpacing: '1.5px',
+              boxShadow: '0 0 20px rgba(255,120,0,0.45)',
+              transition: 'transform 0.15s, box-shadow 0.15s',
+              width: '100%',
+              opacity: 0.7,
+            }}>
+              VIEW PROFILE
+            </button>
+          </div>
+
+          {/* Placeholder Card 3 */}
+          <div className="player-card" style={{
+            position: 'relative',
+            width: '280px',
+            borderRadius: '20px',
+            border: '1px solid rgba(100,80,255,0.25)',
+            background: 'linear-gradient(160deg, rgba(30,18,90,0.85) 0%, rgba(15,8,50,0.95) 100%)',
+            backdropFilter: 'blur(10px)',
+            padding: '40px 24px 28px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            cursor: 'pointer',
+          }}>
+            {/* Radar rings + placeholder avatar */}
+            <div style={{ position: 'relative', width: '140px', height: '140px', marginBottom: '18px' }}>
+              {[130, 110, 90].map((size, i) => (
+                <div key={i} style={{
+                  position: 'absolute',
+                  top: '50%', left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: `${size}px`, height: `${size}px`,
+                  borderRadius: '50%',
+                  border: `1px solid rgba(80,120,255,${0.15 + i * 0.05})`,
+                  boxShadow: `0 0 ${6 + i * 3}px rgba(60,100,255,0.1)`,
+                }} />
+              ))}
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
+                <div key={i} style={{
+                  position: 'absolute',
+                  top: '50%', left: '50%',
+                  width: '2px', height: '55px',
+                  background: 'linear-gradient(to bottom, rgba(80,120,255,0.25), transparent)',
+                  transformOrigin: '50% 0%',
+                  transform: `translate(-50%, 0) rotate(${deg}deg)`,
+                }} />
+              ))}
+              {/* Placeholder Avatar */}
+              <div style={{
+                position: 'absolute', top: '50%', left: '50%',
+                transform: 'translate(-50%, -55%)',
+                width: '80px', height: '80px',
+                borderRadius: '50%',
+                overflow: 'hidden',
+                border: '3px solid rgba(100,80,255,0.5)',
+                boxShadow: '0 0 20px rgba(80,60,220,0.5)',
+                background: 'linear-gradient(135deg, #2a1a6e, #1a0a4a)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '32px' }}>👤</span>
+              </div>
+              {/* Rank hex badge */}
+              <div style={{
+                position: 'absolute', bottom: '4px', left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: 2,
+              }}>
+                <div style={{
+                  background: 'linear-gradient(135deg, #ff9800, #ff5722)',
+                  clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                  width: '36px', height: '40px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: '0 0 12px rgba(255,120,0,0.6)',
+                }}>
+                  <span style={{ color: '#fff', fontWeight: 900, fontSize: '13px' }}>--</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Placeholder Name */}
+            <h3 style={{
+              color: 'rgba(255,255,255,0.5)',
+              fontWeight: 900, fontSize: '20px',
+              letterSpacing: '1.5px', margin: '0 0 8px 0',
+              textTransform: 'uppercase', textAlign: 'center',
+            }}>COMING SOON</h3>
+
+            {/* Placeholder XP & Date */}
+            <p style={{ margin: '0 0 14px 0', fontSize: '13px', color: 'rgba(200,200,255,0.4)', textAlign: 'center' }}>
+              <span style={{ color: 'rgba(124,252,0,0.4)', fontWeight: 700 }}>--- XP Earned</span>
+              {' '}
+              <span style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>--/-- - --/--</span>
+            </p>
+
+            {/* Placeholder Credits */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '6px',
+              marginBottom: '20px',
+              color: 'rgba(0,229,255,0.4)', fontWeight: 700, fontSize: '14px',
+            }}>
+              <span>🎁</span>
+              <span>-- CREDITS</span>
+            </div>
+
+            {/* View Profile button */}
+            <button style={{
+              background: 'linear-gradient(90deg, #ff9800, #ff5722)',
+              color: '#fff', fontWeight: 800, fontSize: '13px',
+              border: 'none', borderRadius: '24px',
+              padding: '12px 32px', cursor: 'pointer',
+              letterSpacing: '1.5px',
+              boxShadow: '0 0 20px rgba(255,120,0,0.45)',
+              transition: 'transform 0.15s, box-shadow 0.15s',
+              width: '100%',
+              opacity: 0.7,
+            }}>
+              VIEW PROFILE
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── NOTICE SECTION ── */}
+      <div className="notice-section" style={{
+        position: 'relative',
+        zIndex: 2,
+        background: 'linear-gradient(135deg, #0d0840 0%, #1a0f5e 50%, #0d0840 100%)',
+        padding: '60px 60px 70px',
+        borderTop: '1px solid rgba(100,80,255,0.3)',
+        borderBottom: '1px solid rgba(100,80,255,0.3)',
+      }}>
+        {/* Background pattern */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: `radial-gradient(circle at 20% 50%, rgba(80,60,220,0.08) 2px, transparent 2px)`,
+          backgroundSize: '40px 40px',
+          zIndex: 0,
+        }} />
+        
+        {/* Ambient glows */}
+        <div style={{
+          position: 'absolute', top: '-50px', left: '10%',
+          width: '200px', height: '200px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(80,60,220,0.2) 0%, transparent 70%)',
+          filter: 'blur(40px)', zIndex: 0,
+        }} />
+        <div style={{
+          position: 'absolute', bottom: '-50px', right: '10%',
+          width: '200px', height: '200px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(255,80,140,0.15) 0%, transparent 70%)',
+          filter: 'blur(40px)', zIndex: 0,
+        }} />
+
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 1,
+        }}>
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2 style={{
+              color: '#fff',
+              fontWeight: 900,
+              fontSize: '42px',
+              letterSpacing: '2px',
+              margin: '0 0 10px 0',
+              textTransform: 'uppercase',
+              background: 'linear-gradient(135deg, #fff, #a855f7)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>📢 NOTICE BOARD</h2>
+            <p style={{
+              color: 'rgba(220,220,255,0.6)',
+              fontSize: '15px',
+              margin: 0,
+            }}>Stay updated with latest announcements and events</p>
+          </div>
+
+          {/* Notice Items Container */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            maxWidth: '800px',
+            margin: '0 auto',
+          }}>
+            {/* Sample Notice Structure */}
+            {[
+              {
+                id: 1,
+                title: '🎉 Welcome to Our Platform!',
+                content: 'Get ready to compete in exciting tournaments and win real money prizes.',
+                date: '2024-01-01',
+                type: 'info',
+              },
+              {
+                id: 2,
+                title: '🏆 New Tournament Alert',
+                content: 'Free Fire Championship starting soon. Register now to secure your spot!',
+                date: '2024-01-15',
+                type: 'event',
+              },
+              {
+                id: 3,
+                title: '💡 Pro Tip',
+                content: 'Practice regularly and check our guides to improve your gameplay.',
+                date: '2024-01-20',
+                type: 'tip',
+              },
+            ].map((notice, idx) => (
+              <div
+                key={notice.id}
+                style={{
+                  background: 'rgba(20,12,60,0.7)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  padding: '18px 24px',
+                  border: '1px solid rgba(100,80,255,0.25)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  cursor: 'pointer',
+                  animation: idx === 0 ? 'noticePulse 2s ease-in-out infinite' : 'none',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateX(8px)';
+                  e.currentTarget.style.borderColor = '#a855f7';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(168,85,247,0.2)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateX(0)';
+                  e.currentTarget.style.borderColor = 'rgba(100,80,255,0.25)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  flexWrap: 'wrap',
+                  gap: '12px',
+                }}>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{
+                      color: notice.type === 'event' ? '#ff9800' : notice.type === 'tip' ? '#00e5ff' : '#fff',
+                      fontWeight: 800,
+                      fontSize: '18px',
+                      margin: '0 0 8px 0',
+                      letterSpacing: '0.5px',
+                    }}>{notice.title}</h3>
+                    <p style={{
+                      color: 'rgba(220,220,255,0.75)',
+                      fontSize: '14px',
+                      margin: 0,
+                      lineHeight: 1.5,
+                    }}>{notice.content}</p>
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    gap: '6px',
+                  }}>
+                    <span style={{
+                      background: 'rgba(255,255,255,0.1)',
+                      padding: '4px 10px',
+                      borderRadius: '20px',
+                      fontSize: '11px',
+                      color: 'rgba(220,220,255,0.7)',
+                      fontWeight: 500,
+                    }}>{notice.date}</span>
+                    {notice.type === 'event' && (
+                      <span style={{
+                        background: 'rgba(255,152,0,0.2)',
+                        padding: '2px 8px',
+                        borderRadius: '12px',
+                        fontSize: '10px',
+                        color: '#ff9800',
+                        fontWeight: 600,
+                      }}>NEW</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* "View All" Button */}
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+            <button
               style={{
-                position: 'relative',
-                width: '280px',
-                borderRadius: '20px',
-                border: '1px solid rgba(100,80,255,0.25)',
-                background: 'linear-gradient(160deg, rgba(30,18,90,0.85) 0%, rgba(15,8,50,0.95) 100%)',
-                backdropFilter: 'blur(10px)',
-                padding: '40px 24px 28px',
-                display: 'flex', flexDirection: 'column', alignItems: 'center',
-                boxShadow: player.featured
-                  ? '0 0 40px rgba(120,60,255,0.35), 0 20px 50px rgba(0,0,0,0.6)'
-                  : '0 8px 30px rgba(0,0,0,0.5)',
-                transform: player.featured ? 'translateY(-20px)' : 'translateY(0)',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                background: 'transparent',
+                border: '2px solid rgba(168,85,247,0.5)',
+                color: '#a855f7',
+                fontWeight: 700,
+                fontSize: '14px',
+                borderRadius: '30px',
+                padding: '10px 28px',
                 cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                letterSpacing: '1px',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.transform = player.featured ? 'translateY(-28px)' : 'translateY(-10px)';
-                e.currentTarget.style.boxShadow = '0 0 50px rgba(120,60,255,0.5), 0 25px 60px rgba(0,0,0,0.7)';
+                e.currentTarget.style.background = 'rgba(168,85,247,0.15)';
+                e.currentTarget.style.borderColor = '#a855f7';
+                e.currentTarget.style.transform = 'scale(1.02)';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.transform = player.featured ? 'translateY(-20px)' : 'translateY(0)';
-                e.currentTarget.style.boxShadow = player.featured
-                  ? '0 0 40px rgba(120,60,255,0.35), 0 20px 50px rgba(0,0,0,0.6)'
-                  : '0 8px 30px rgba(0,0,0,0.5)';
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.5)';
+                e.currentTarget.style.transform = 'scale(1)';
               }}
             >
-              {/* Featured star ribbon */}
-              {player.featured && (
-                <div style={{
-                  position: 'absolute', top: '-1px', left: '50%',
-                  transform: 'translateX(-50%)',
-                  zIndex: 3,
-                }}>
-                  <div style={{
-                    background: 'linear-gradient(135deg, #e91e8c, #c2185b)',
-                    width: '44px', paddingBottom: '16px',
-                    display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-                    paddingTop: '10px',
-                    clipPath: 'polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%)',
-                    boxShadow: '0 4px 20px rgba(233,30,140,0.6)',
-                  }}>
-                    <span style={{ color: '#fff', fontSize: '18px' }}>★</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Radar rings + avatar */}
-              <div style={{ position: 'relative', width: '140px', height: '140px', marginBottom: '18px', marginTop: player.featured ? '20px' : '0' }}>
-                {[130, 110, 90].map((size, i) => (
-                  <div key={i} style={{
-                    position: 'absolute',
-                    top: '50%', left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: `${size}px`, height: `${size}px`,
-                    borderRadius: '50%',
-                    border: `1px solid rgba(80,120,255,${0.15 + i * 0.05})`,
-                    boxShadow: `0 0 ${6 + i * 3}px rgba(60,100,255,0.1)`,
-                  }} />
-                ))}
-                {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
-                  <div key={i} style={{
-                    position: 'absolute',
-                    top: '50%', left: '50%',
-                    width: '2px', height: '55px',
-                    background: 'linear-gradient(to bottom, rgba(80,120,255,0.25), transparent)',
-                    transformOrigin: '50% 0%',
-                    transform: `translate(-50%, 0) rotate(${deg}deg)`,
-                  }} />
-                ))}
-                {/* Avatar */}
-                <div style={{
-                  position: 'absolute', top: '50%', left: '50%',
-                  transform: 'translate(-50%, -55%)',
-                  width: '80px', height: '80px',
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  border: '3px solid rgba(100,80,255,0.5)',
-                  boxShadow: '0 0 20px rgba(80,60,220,0.5)',
-                }}>
-                  <img src={player.avatar} alt={player.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                {/* Rank hex badge */}
-                <div style={{
-                  position: 'absolute', bottom: '4px', left: '50%',
-                  transform: 'translateX(-50%)',
-                  zIndex: 2,
-                }}>
-                  <div style={{
-                    background: 'linear-gradient(135deg, #ff9800, #ff5722)',
-                    clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                    width: '36px', height: '40px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    boxShadow: '0 0 12px rgba(255,120,0,0.6)',
-                  }}>
-                    <span style={{ color: '#fff', fontWeight: 900, fontSize: '13px' }}>{player.rank}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Name */}
-              <h3 style={{
-                color: '#fff', fontWeight: 900, fontSize: '20px',
-                letterSpacing: '1.5px', margin: '0 0 8px 0',
-                textTransform: 'uppercase', textAlign: 'center',
-                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-              }}>{player.name}</h3>
-
-              {/* XP & Date */}
-              <p style={{ margin: '0 0 14px 0', fontSize: '13px', color: 'rgba(200,200,255,0.6)', textAlign: 'center' }}>
-                <span style={{ color: '#7cfc00', fontWeight: 700 }}>{player.xp}</span>
-                {' '}
-                <span style={{ color: '#fff', fontWeight: 600 }}>{player.date}</span>
-              </p>
-
-              {/* Credits */}
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '6px',
-                marginBottom: '20px',
-                color: '#00e5ff', fontWeight: 700, fontSize: '14px',
-              }}>
-                <span>🎁</span>
-                <span>{player.credits}</span>
-              </div>
-
-              {/* View Profile button */}
-              <button style={{
-                background: 'linear-gradient(90deg, #ff9800, #ff5722)',
-                color: '#fff', fontWeight: 800, fontSize: '13px',
-                border: 'none', borderRadius: '24px',
-                padding: '12px 32px', cursor: 'pointer',
-                letterSpacing: '1.5px',
-                boxShadow: '0 0 20px rgba(255,120,0,0.45)',
-                transition: 'transform 0.15s, box-shadow 0.15s',
-                width: '100%',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.boxShadow = '0 0 30px rgba(255,120,0,0.65)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(255,120,0,0.45)'; }}
-              >VIEW PROFILE</button>
-            </div>
-          ))}
+              VIEW ALL NOTICES →
+            </button>
+          </div>
         </div>
       </div>
     </div>
