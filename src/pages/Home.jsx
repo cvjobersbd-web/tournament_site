@@ -18,7 +18,7 @@ const Home = () => {
       prize: 739,
       entryFee: '10 CREDITS',
       teamSize: '2 VS 2',
-      enrolled: 11,
+      enrolled: 11, 
       maxTeams: 64,
       startsIn: '10d 2H 18M',
     },
